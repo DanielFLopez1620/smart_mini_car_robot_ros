@@ -16,5 +16,5 @@
     name="rviz"
     pkg="rviz"
     type="rviz"
-    args="-d $(find elegoo_car_v3_description)/urdf.rviz" />
+    args="-d $(find elegoo_car_v3_description)/rviz/basic_display.rviz" />
 </launch>

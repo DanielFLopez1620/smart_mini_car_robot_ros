@@ -472,7 +472,7 @@
     <child
       link="shaft_2" />
     <axis
-      xyz="0 -1 0" />
+      xyz="0 1 0" />
     <limit
       effort="0.09807"
       velocity="23" />
@@ -743,7 +743,7 @@
     <child
       link="shaft_3" />
     <axis
-      xyz="0 -1 0" />
+      xyz="0 1 0" />
     <limit
       effort="0.09807"
       velocity="23" />

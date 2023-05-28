@@ -1925,6 +1925,15 @@
         <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <transmission name="servo_to_shaft_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="servo_to_shaft">
+        <hardwareInterface>VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="servo_to_shaft_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
   
   <!-- Gazebo controller for 4 wheeled robot -->
   <gazebo>
@@ -1991,7 +2000,8 @@
   </gazebo>
 
   <!-- Gazebo references for materials -->
-  <gazebo reference="neumatic_1">
+  <gazebo 
+    reference="neumatic_1">
     <mu1>0.1</mu1>
     <mu2>0.1</mu2>
     <kp>500000.0</kp>
@@ -2001,7 +2011,8 @@
     <fdir1>1 0 0</fdir1>
     <material>Gazebo/FlatBlack</material>
   </gazebo>
-  <gazebo reference="neumatic_2">
+  <gazebo 
+    reference="neumatic_2">
     <mu1>0.1</mu1>
     <mu2>0.1</mu2>
     <kp>500000.0</kp>
@@ -2011,7 +2022,8 @@
     <fdir1>1 0 0</fdir1>
     <material>Gazebo/FlatBlack</material>
   </gazebo>
-  <gazebo reference="neumatic_3">
+  <gazebo 
+    reference="neumatic_3">
     <mu1>0.1</mu1>
     <mu2>0.1</mu2>
     <kp>500000.0</kp>
@@ -2021,7 +2033,8 @@
     <fdir1>1 0 0</fdir1>
     <material>Gazebo/FlatBlack</material>
   </gazebo>
-  <gazebo reference="neumatic_4">
+  <gazebo 
+    reference="neumatic_4">
     <mu1>0.1</mu1>
     <mu2>0.1</mu2>
     <kp>500000.0</kp>
@@ -2030,6 +2043,99 @@
     <maxVel>0.1</maxVel>
     <fdir1>1 0 0</fdir1>
     <material>Gazebo/FlatBlack</material>
+  </gazebo>
+  <gazebo reference="base_link">
+    <material>Gazebo/FlatBlack</material>
+  </gazebo>
+  <gazebo reference="support_1">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="motor_1">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="shaft_1">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="ring_1">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="support_2">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="motor_2">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="shaft_2">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="ring_2">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="support_3">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="motor_3">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="shaft_3">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="ring_3">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="support_4">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="motor_4">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="shaft_4">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="ring_4">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <gazebo reference="hex_support_1">
+    <material>Gazebo/Gold</material>
+  </gazebo>
+  <gazebo reference="hex_support_2">
+    <material>Gazebo/Gold</material>
+  </gazebo>
+  <gazebo reference="hex_support_3">
+    <material>Gazebo/Gold</material>
+  </gazebo>
+  <gazebo reference="hex_support_4">
+    <material>Gazebo/Gold</material>
+  </gazebo>
+  <gazebo reference="hex_support_5">
+    <material>Gazebo/Gold</material>
+  </gazebo>
+  <gazebo reference="hex_support_6">
+    <material>Gazebo/Gold</material>
+  </gazebo>
+  <gazebo reference="medium_plate">
+    <material>Gazebo/FlatBlack</material>
+  </gazebo>
+  <gazebo reference="batery">
+    <material>Gazebo/FlatBlack</material>
+  </gazebo>
+  <gazebo reference="arduino">
+    <material>Gazebo/DarkGray</material>
+  </gazebo>
+  <gazebo reference="servo_base">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="servo">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="servo_shaft">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="ultrasonic_support">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="ultrasonic_sensor">
+    <material>Gazebo/Blue</material>
   </gazebo>
  
 </robot>

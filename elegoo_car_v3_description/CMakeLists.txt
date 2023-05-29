@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 2.8.3)
 
 project(elegoo_car_v3_description)
 
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED COMPONENTS
+	urdf
+	xacro
+)
 
 catkin_package()
 

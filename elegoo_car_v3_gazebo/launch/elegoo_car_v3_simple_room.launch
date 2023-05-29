@@ -1,0 +1,18 @@
+<launch>
+  <!-- Robot is already included in the world-->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find elegoo_car_v3_gazebo)/worlds/elegoo_car_v3_simple_room.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="verbose" value="false"/>
+    <arg name="headless" value="false"/>
+  </include>
+
+  <node
+    name="teleop_twist_keyboard"
+    pkg="teleop_twist_keyboard"
+    type="teleop_twist_keyboard.py"
+    output="screen" />
+
+</launch>

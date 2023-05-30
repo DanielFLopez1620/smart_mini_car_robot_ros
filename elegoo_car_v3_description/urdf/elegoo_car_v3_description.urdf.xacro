@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot name="elegoo_car_v3_description" xmlns:xacro="http://ros.org/wiki/xacro">
 <!--____________________XACRO PROPERTIES___________________-->
+<xacro:include filename="$(find elegoo_car_v3_description)/urdf/colors_and_materials.xacro"/>
+<xacro:include filename="$(find elegoo_car_v3_description)/urdf/elegoo_car_v3_gazebo.urdf.xacro"/>
 <!-- __________________ BASE LINK DEFINITION______________-->
     <link
         name="base_link">
@@ -26,11 +28,7 @@
             <mesh
             filename="package://elegoo_car_v3_description/meshes/base_link.STL" />
         </geometry>
-        <material
-            name="">
-            <color
-            rgba="0.1254 0.1254 0.1254 0.9" />
-        </material>
+        <material name="black_acrilic"/>
         </visual>
         <collision>
         <origin
@@ -72,11 +70,7 @@
                 <mesh
                 filename="package://elegoo_car_v3_description/meshes/support_${num}.STL" />
             </geometry>
-            <material
-                name="">
-                <color
-                rgba="0.6274 0.6274 0.6274 1" />
-            </material>
+            <material name="gray_metal"/>
             </visual>
             <collision>
             <origin
@@ -125,11 +119,7 @@
                 <mesh
                 filename="package://elegoo_car_v3_description/meshes/motor_${num}.STL" />
             </geometry>
-            <material
-                name="">
-                <color
-                rgba="1 1 0 1" />
-            </material>
+            <material name="yellow"/>
             </visual>
             <collision>
             <origin
@@ -179,11 +169,7 @@
                 <mesh
                 filename="package://elegoo_car_v3_description/meshes/shaft_${num}.STL" />
             </geometry>
-                <material
-                    name="">
-                    <color
-                    rgba="1 1 1 1" />
-                </material>
+                <material name="white"/>
             </visual>
             <collision>
             <origin
@@ -236,11 +222,7 @@
                 <mesh
                 filename="package://elegoo_car_v3_description/meshes/ring_${num}.STL" />
             </geometry>
-            <material
-                name="">
-                <color
-                rgba="1 1 0 1" />
-            </material>
+            <material name="yellow"/>
             </visual>
             <collision>
             <origin
@@ -293,11 +275,7 @@
                 <mesh
                 filename="package://elegoo_car_v3_description/meshes/neumatic_${num}.STL" />
             </geometry>
-            <material
-                name="">
-                <color
-                rgba="0 0 0 1" />
-            </material>
+            <material name="black"/>
             </visual>
             <collision>
             <origin
@@ -322,6 +300,15 @@
             <axis
             xyz="0 0 0" />
         </joint>
+      <transmission name="motor_to_shaft_${num}_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="motor_to_shaft_${num}">
+            <hardwareInterface>VelocityJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor_to_shaft_${num}_motor">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+      </transmission>
     </xacro:macro>
 
     <xacro:macro name="hex_supports" params="num x y z">
@@ -349,11 +336,7 @@
                 <mesh
                 filename="package://elegoo_car_v3_description/meshes/hex_support_${num}.STL" />
             </geometry>
-            <material
-                name="">
-                <color
-                rgba="0.6 0.6 0 1" />
-            </material>
+            <material name="gold"/>
             </visual>
             <collision>
             <origin
@@ -380,7 +363,7 @@
     </joint>
     </xacro:macro>
 
-    <!-- _________________ MODEL DEFINITIONS _______________-->
+<!-- _________________ MODEL DEFINITIONS _______________-->
     
     <xacro:wheel_structure num="1" front="1" dir="1"/>
     <xacro:wheel_structure num="2" front="-1" dir="1"/>
@@ -393,7 +376,7 @@
     <xacro:hex_supports num="5" x="2.0042E-08" y="-0.05605" z="0.04085" />
     <xacro:hex_supports num="6" x="0.08395" y="-0.05315" z="0.04085" />
     
-    <!-- _________________ PLAIN DEFINITIONS _________________-->
+<!-- _________________ PLAIN DEFINITIONS _________________-->
     <link
     name="medium_plate">
     <inertial>
@@ -418,11 +401,7 @@
         <mesh
           filename="package://elegoo_car_v3_description/meshes/medium_plate.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.1254 0.1254 0.1254 1" />
-      </material>
+      <material name="black_acrilic"/>
     </visual>
     <collision>
       <origin
@@ -471,11 +450,7 @@
         <mesh
           filename="package://elegoo_car_v3_description/meshes/batery.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="1 1 1 1" />
-      </material>
+      <material name="black"/>
     </visual>
     <collision>
       <origin
@@ -524,11 +499,7 @@
         <mesh
           filename="package://elegoo_car_v3_description/meshes/arduino.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.529411764705882 0.549019607843137 0.549019607843137 1" />
-      </material>
+      <material name="gray_base"/>
     </visual>
     <collision>
       <origin
@@ -577,11 +548,7 @@
         <mesh
           filename="package://elegoo_car_v3_description/meshes/servo_base.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.1254 0.1254 0.1254 1" />
-      </material>
+      <material name="black_acrilic"/>
     </visual>
     <collision>
       <origin
@@ -630,11 +597,7 @@
         <mesh
           filename="package://elegoo_car_v3_description/meshes/servo.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.2 0.2 1 0.9" />
-      </material>
+      <material name="blue_servo"/>
     </visual>
     <collision>
       <origin
@@ -683,11 +646,7 @@
         <mesh
           filename="package://elegoo_car_v3_description/meshes/servo_shaft.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.1254 0.1254 0.1254 1" />
-      </material>
+      <material name="black_acrilic"/>
     </visual>
     <collision>
       <origin
@@ -741,11 +700,7 @@
         <mesh
           filename="package://elegoo_car_v3_description/meshes/ultrasonic_support.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.1254 0.1254 0.1254 1" />
-      </material>
+      <material name="black_acrilic"/>
     </visual>
     <collision>
       <origin
@@ -794,11 +749,7 @@
         <mesh
           filename="package://elegoo_car_v3_description/meshes/ultrasonic_sensor.STL" />
       </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.2 0.2 1 1" />
-      </material>
+      <material name="blue_ultrasonic"/>
     </visual>
     <collision>
       <origin
@@ -823,5 +774,13 @@
     <axis
       xyz="0 0 0" />
   </joint>
-  
+  <transmission name="servo_to_shaft_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="servo_to_shaft">
+        <hardwareInterface>VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="servo_to_shaft_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
 </robot>

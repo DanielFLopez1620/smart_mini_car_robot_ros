@@ -41,7 +41,6 @@
         </collision>
     </link>
 <!--______________________XACRO MACROS_____________________-->
-    <!-- TODO: Add cases for inertia improvements-->
     <xacro:macro name="wheel_structure" params="num front dir">
         <!-- param: front (1=front or -1=back) -->
         <!-- param: dir (-1=right or 1=left) -->
@@ -147,7 +146,6 @@
         <link
             name="shaft_${num}">
             <inertial>
-            <!-- TODO: Add cases for shaft (1 & 4) or (2 & 3) -->
             <origin
                 xyz="0 0.02675 3.46944695195361E-18"
                 rpy="0 0 0" />
@@ -252,7 +250,6 @@
         </joint>
         <link
             name="neumatic_${num}">
-            <!-- TODO: Validate if x is despreciable -->
             <inertial>
             <origin
                 xyz="-2.7756E-17 ${dir*-1*0.04378} 1.3878E-17"

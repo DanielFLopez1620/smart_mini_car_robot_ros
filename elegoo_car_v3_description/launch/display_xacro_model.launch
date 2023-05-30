@@ -1,6 +1,6 @@
 <launch>
 
-  <arg name="model" default="$(find elegoo_car_v3_description)/urdf/elegoo_car_v3_description.xacro"/>
+  <arg name="model" default="$(find elegoo_car_v3_description)/urdf/elegoo_car_v3_description.urdf.xacro"/>
   
   <arg name="gui" default="true" />
   <arg name="rvizconfig" default="$(find elegoo_car_v3_description)/rviz/basic_display.rviz" />

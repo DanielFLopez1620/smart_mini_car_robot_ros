@@ -6,7 +6,7 @@
 
 Package related to the description with URDF and Xacro of the Smart Robot Car V3.0 from [Elegoo] as an approach to use the robot with ROS and deepen the capabilities of Arduino robots with simulations and visualizations.
 
-**Keywords:** smart robot, urdf, xacro, robot_description.
+**Keywords:** smart robot, urdf, xacro, robot_description, ROS.
 
 ### License
 
@@ -15,8 +15,8 @@ The source code is released under a [BSD 3-Clause license](/LICENSE).
 **Author: Daniel F López<br />
 Maintainer: Daniel F López, dfelipe.lopez@gmail.com**
 
-The PACKAGE NAME package has been tested under [ROS] Noetic on Ubuntu 20.04 LTS.
-This is a educational purposes on demostrating the capabilities of ROS and [Arduino] for robotics.
+The *elegoo_car_v3_description* package has been tested under [ROS] Noetic on Ubuntu 20.04 LTS.
+This is a educational project, which purposes on demostrating the capabilities of ROS and [Arduino] for robotics.
 
 ## Installation
 
@@ -30,6 +30,9 @@ Make sure you have installed [Xacro], [URDF] and [rviz]
     sudo apt-get install ros-noetic-joint-state-publisher
     sudo apt-get install ros-noetic-joint-state-publisher-gui
     
+Then, you can make sure you have installed all the dependencies by running:
+
+	sudo rosdep install --from-paths src
 ### Building from Source
 
 #### Dependencies
@@ -39,6 +42,8 @@ Make sure you have installed [Xacro], [URDF] and [rviz]
 - [Xacro](http://wiki.ros.org/xacro) (XML macro language compatible with URDF)
 - [Joint State Publisher](http://wiki.ros.org/joint_state_publisher) (For setting and publishing joint state values for a URDF robot model)
 - [Joint State Publisher Gui](http://wiki.ros.org/joint_state_publisher_guir) (For setting and publishing  joint state values for a URDF robot model using a GUI tool)
+- [RVIZ](http://wiki.ros.org/rviz) (The ROS program related with visualization of models, sensor data, status of the robot, and others related).
+- [Gazebo-ROS](http://wiki.ros.org/gazebo_ros_pkgs) (Interface for using the Gazebo simulator with ROS)
 
 	sudo rosdep install --from-paths src
 
@@ -101,7 +106,7 @@ This package has different launches related to the description of the robot in a
 
 * **`/initialpose`** ([geometry_msgs/PoseWithCovarianceStamped])
 
-	Topic used for RVIZ for the pose stamped of the model.
+	Topic used for RVIZ for the pose stamped of the model, and other relates has been omitted.
 ...
 
 

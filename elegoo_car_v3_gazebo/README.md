@@ -1,54 +1,30 @@
-# Package Name
+# Elegoo Car V3 Gazebo
 
 ## Overview
 
-This is a template: replace, remove, and add where required. Describe here what this package does and what it's meant for in a few sentences.
+Package related to the simulation with Gazebo for the description defined in the [elegoo_car_v3_description](/elegoo_car_v3_description/) package, where you can explore simulated worlds with the car that is sold by [ELEGOO].
 
-**Keywords:** example, package, template
-
-Or, add some keywords to the Bitbucket or GitHub repository.
+**Keywords:** smart robot, gazebo, simulation, ROS.
 
 ### License
 
-The source code is released under a [BSD 3-Clause license](ros_package_template/LICENSE).
+The source code is released under a [BSD 3-Clause license](/LICENSE).
 
-**Author: Péter Fankhauser<br />
-Affiliation: [ANYbotics](https://www.anybotics.com/)<br />
-Maintainer: Péter Fankhauser, pfankhauser@anybotics.com**
+**Author: Daniel F López<br />
+Maintainer: Daniel F López, dfelipe.lopez@gmail.com**
 
-The PACKAGE NAME package has been tested under [ROS] Indigo, Melodic and Noetic on respectively Ubuntu 14.04, 18.04 and 20.04.
-This is research code, expect that it changes often and any fitness for a particular purpose is disclaimed.
-
-[![Build Status](http://rsl-ci.ethz.ch/buildStatus/icon?job=ros_best_practices)](http://rsl-ci.ethz.ch/job/ros_best_practices/)
-
-
-![Example image](doc/example.jpg)
-
-
-### Publications
-
-If you use this work in an academic context, please cite the following publication(s):
-
-* P. Fankhauser, M. Bloesch, C. Gehring, M. Hutter, and R. Siegwart: **PAPER TITLE**. IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2015. ([PDF](http://dx.doi.org/10.3929/ethz-a-010173654))
-
-        @inproceedings{Fankhauser2015,
-            author = {Fankhauser, P\'{e}ter and Hutter, Marco},
-            booktitle = {IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
-            title = {{PAPER TITLE}},
-            publisher = {IEEE},
-            year = {2015}
-        }
-
-
+The *elegoo_car_v3_gazebo* package has been tested under [ROS] Noetic on Ubuntu 20.04.
+This is a educational project, which purposes on demostrating the capabilities of ROS and [Arduino] for robotics, and explore other capabilities of ROS related with simulations.
 ## Installation
 
 ### Installation from Packages
 
-To install all packages from the this repository as Debian packages use
+To install all packages from the this repository, make sure you have configured the [elegoo_car_v3_description](/elegoo_car_v3_description/) and its dependencies. Then, make sure to install the next packages:
 
-    sudo apt-get install ros-noetic-...
-    
-Or better, use `rosdep`:
+    sudo apt-get install ros-noetic-gazebo-ros
+	sudo apt-get install ros-noetic-gazebo-ros-control
+
+Finally, you can make sure you have installed all the dependencies with:
 
 	sudo rosdep install --from-paths src
 
@@ -56,116 +32,55 @@ Or better, use `rosdep`:
 
 #### Dependencies
 
-- [Robot Operating System (ROS)](http://wiki.ros.org) (middleware for robotics),
-- [Eigen] (linear algebra library)
-
-	sudo rosdep install --from-paths src
+- [Robot Operating System (ROS)](http://wiki.ros.org) (Middleware for robotics),
+- [Gazebo-ROS](http://wiki.ros.org/gazebo_ros_pkgs) (Interface for using the Gazebo simulator with ROS)
+- [Turtlebot3_gazebo](http://wiki.ros.org/turtlebot3_gazebo)(To interact with different worlds already created)
 
 #### Building
 
 To build from source, clone the latest version from this repository into your catkin workspace and compile the package using
 
-	cd catkin_workspace/src
-	git clone https://github.com/ethz-asl/ros_best_practices.git
+	cd <your_workspace>/src
+	git clone https://github.com/DanielFLopez1620/smart_mini_car_robot_ros.git 
 	cd ../
 	rosdep install --from-paths . --ignore-src
 	catkin_make
-
-### Running in Docker
-
-Docker is a great way to run an application with all dependencies and libraries bundles together. 
-Make sure to [install Docker](https://docs.docker.com/get-docker/) first. 
-
-First, spin up a simple container:
-
-	docker run -ti --rm --name ros-container ros:noetic bash
-	
-This downloads the `ros:noetic` image from the Docker Hub, indicates that it requires an interactive terminal (`-t, -i`), gives it a name (`--name`), removes it after you exit the container (`--rm`) and runs a command (`bash`).
-
-Now, create a catkin workspace, clone the package, build it, done!
-
-	apt-get update && apt-get install -y git
-	mkdir -p /ws/src && cd /ws/src
-	git clone https://github.com/leggedrobotics/ros_best_practices.git
-	cd ..
-	rosdep install --from-path src
-	catkin_make
-	source devel/setup.bash
-	roslaunch ros_package_template ros_package_template.launch
-
-### Unit Tests
-
-Run the unit tests with
-
-	catkin_make run_tests_ros_package_template
-
-### Static code analysis
-
-Run the static code analysis with
-
-	catkin_make roslint_ros_package_template
-
 ## Usage
 
-Describe the quickest way to run this software, for example:
+This packages has different launches related to the simulation of a robot, for example, running the robot in a empty world with:
 
-Run the main node with
-
-	roslaunch ros_package_template ros_package_template.launch
-
-## Config files
-
-Config file folder/set 1
-
-* **config_file_1.yaml** Shortly explain the content of this config file
-
-Config file folder/set 2
-
-* **...**
-
+	roslaunch elegoo_car_v3_description elegoo_car_v3_world_xacro.launch
 ## Launch files
 
-* **launch_file_1.launch:** shortly explain what is launched (e.g standard simulation, simulation with gdb,...)
+* **elegoo_car_v3_simple_room.launch:** Launches the elegoo car in a closed room with 6 tables, for interacting with the robot while running the **teleop_twist_keyboard** node.
 
-     Argument set 1
+* **elegoo_car_v3_world_urdf.launch:** Launches an empty world with the elegoo car model that uses the plain urdf generated by [sw_URDF_exporter] and modified to use controllers and other properties in gazebo, which is ready to relate with other nodes.
 
-     - **`argument_1`** Short description (e.g. as commented in launch file). Default: `default_value`.
+* **elegoo_car_v3_world_xacro.launch:** Launches an empty world with the elegoo car model that uses xacro (remember that this model has a little less accurate physics than the plain urdf), which is ready to relate with other nodes.
 
-    Argument set 2
+## Subscribed Topics
 
-    - **`...`**
+* **`/cmd_vel`** ([geometry_msgs/Twist])
 
-* **...**
+	The command velocity for the robot,that can be linked, for example, with the teleop_twist_node.
+## Published Topics
 
-## Nodes
+* **`/tf`** ([tf2_msgs/TFMessage])
 
-### ros_package_template
+	Related to the transforms of the model present in the URDF/Xacro definitions
 
-Reads temperature measurements and computed the average.
+* **`/odom`** ([nav_msgs/Odometry])
 
+	Odometry of the robot. Related to the estimation of the current position based on the movements realized. This is implemented by the controller/plugin used in the xacro/urdf file.
 
-#### Subscribed Topics
+Note that there must be other topics realted to gazebo and rviz that are omitted here.
 
-* **`/temperature`** ([sensor_msgs/Temperature])
+## Services
 
-	The temperature measurements from which the average is computed.
-
-
-#### Published Topics
-
-...
+The ones related with the getters and setters of the links present in the simulation, and others that works for the simulation properties and status, like physics.
 
 
-#### Services
-
-* **`get_average`** ([std_srvs/Trigger])
-
-	Returns information about the current average. For example, you can trigger the computation from the console with
-
-		rosservice call /ros_package_template/get_average
-
-
-#### Parameters
+## Parameters
 
 * **`subscriber_topic`** (string, default: "/temperature")
 
@@ -176,18 +91,17 @@ Reads temperature measurements and computed the average.
 	The size of the cache.
 
 
-### NODE_B_NAME
-
-...
-
-
 ## Bugs & Feature Requests
 
-Please report bugs and request features using the [Issue Tracker](https://github.com/ethz-asl/ros_best_practices/issues).
+Please report bugs and request features using the [Issue Tracker](https://github.com/DanielFLopez1620/smart_mini_car_robot_ros/issues).
 
 
 [ROS]: http://www.ros.org
-[rviz]: http://wiki.ros.org/rviz
-[Eigen]: http://eigen.tuxfamily.org
-[std_srvs/Trigger]: http://docs.ros.org/api/std_srvs/html/srv/Trigger.html
-[sensor_msgs/Temperature]: http://docs.ros.org/api/sensor_msgs/html/msg/Temperature.html
+[ELEGOO]: https://www.amazon.com/stores/page/E0F05684-D7AD-47CF-B08C-4084EBEE5BD3?ingress=2&visitId=16d40731-5924-4131-8f30-082353496e84&ref_=ast_bln
+[Arduino]: https://www.arduino.cc/
+[Xacro]: http://wiki.ros.org/xacro
+[URDF]: http://wiki.ros.org/urdf
+[sw_URDF_exporter]: http://wiki.ros.org/sw_urdf_exporter
+[geometry_msgs/Twist](https://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html)
+[tf2_msgs/TFMessage]:(http://docs.ros.org/en/lunar/api/tf2_msgs/html/msg/TFMessage.html)
+[nav_msgs/Odometry](https://docs.ros.org/en/noetic/api/nav_msgs/html/msg/Odometry.html)

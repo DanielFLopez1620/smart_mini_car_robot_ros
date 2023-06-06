@@ -1,9 +1,14 @@
+// ------------------ Arduino Headers -------------
 #include <ArduinoHardware.h>
+
+// ------------------ ROS Headers -----------------
 #include <ros.h>
 #include <std_msgs/Float32.h>
 #include <geometry_msgs/Twist.h>
 
-// #define USE_USBCON
+// -------------------- Global declarations -------------------
+
+// Ports for H BridgeBCON
 #define ENA 5
 #define ENB 6
 #define IN1 7
@@ -11,9 +16,17 @@
 #define IN3 9
 #define IN4 11
 
+// Declaration of node handler
 ros::NodeHandle  nh;
 
+// ----------------------- FUNCTION DECLARATIONS --------------------
 
+/**
+ * Callback for processing command velocities
+ * 
+ * @param mov_msg Geometry message of type twist, the main interst
+ * results in the linear.x and angular.z atributes.
+ */
 void cmd_callback(const geometry_msgs::Twist& mov_msg)
 {
   float Setpoint_r, Setpoint_l, x, z;
@@ -43,8 +56,7 @@ void cmd_callback(const geometry_msgs::Twist& mov_msg)
     Setpoint_r = 0;
   }
   
-
-  
+  // Validate if the velocity is greater that zero
   if(wtf)
   {
     digitalWrite(IN1, LOW); 
@@ -52,12 +64,12 @@ void cmd_callback(const geometry_msgs::Twist& mov_msg)
     digitalWrite(IN3, LOW);  
     digitalWrite(IN4, LOW);
   }
-  else
+  else // Ohterwise assign the case and move
   {
-    analogWrite(ENB, Setpoint_l*escaling);
-    analogWrite(ENA, Setpoint_r*escaling);
     if(x > 0 && z==0) // Only Forward
     {
+      analogWrite(ENB, Setpoint_l*escaling);
+      analogWrite(ENA, Setpoint_r*escaling);
       digitalWrite(IN1, HIGH); 
       digitalWrite(IN2, LOW);  
       digitalWrite(IN3, LOW);  
@@ -135,12 +147,13 @@ void cmd_callback(const geometry_msgs::Twist& mov_msg)
       nh.loginfo("Backward and left!");
     }*/
   }
-  return;
 }
+
+// ----------------------- MAIN PROGRAM -------------------------
 
 void setup() 
 {
-  // put your setup code here, to run once:
+  // Configure the give ports of the motor
   pinMode(IN1,OUTPUT);
   pinMode(IN2,OUTPUT);
   pinMode(IN3,OUTPUT);
@@ -148,13 +161,13 @@ void setup()
   pinMode(ENA,OUTPUT);
   pinMode(ENB,OUTPUT);
   
+  // Initialize communication and subscribe by using /cmd_vel
   nh.initNode(); 
-  
+  ros::Subscriber<geometry_msgs::Twist> sub("/cmd_vel", &cmd_callback);
+  nh.subscribe(sub);
 }
 
 void loop() 
 {
-  ros::Subscriber<geometry_msgs::Twist> sub("/cmd_vel", &cmd_callback);
-  nh.subscribe(sub);
   nh.spinOnce();
 }

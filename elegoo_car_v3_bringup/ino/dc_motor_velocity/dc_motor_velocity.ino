@@ -1,8 +1,13 @@
+// -------------------- Arduino Headers -----------------------
 #include <ArduinoHardware.h>
+
+// ---------------------- ROS Headers -------------------------
 #include <ros.h>
 #include <std_msgs/Int32.h>
 
-// #define USE_USBCON
+// -------------------- Global declarations -------------------
+
+// Ports for H Bridge
 #define ENA 5
 #define ENB 6
 #define IN1 7
@@ -10,9 +15,19 @@
 #define IN3 9
 #define IN4 11
 
+// Declare node handle
 ros::NodeHandle  nh;
+
+// Velocity considered for the program
 int vel_x = 250;
 
+/**
+ * Callback to specify a case of direction for the robot, subscribed
+ * to the /lineal_move topic.
+ * 
+ * @param mov_msg Standar message integer, that selects the direction (0:Forward,
+ * 1: backwards, 2: left, 3: right, otherwise: stop)
+*/
 void lineal_callback(const std_msgs::Int32& mov_msg)
 {
   int case_mov = mov_msg.data;
@@ -64,18 +79,19 @@ void lineal_callback(const std_msgs::Int32& mov_msg)
     digitalWrite(IN4,LOW);
     delay(20);
   }
-  return;
 }
 
 void setup() 
 {
-  // put your setup code here, to run once:
+  // Specifying ports previously defined
   pinMode(IN1,OUTPUT);
   pinMode(IN2,OUTPUT);
   pinMode(IN3,OUTPUT);
   pinMode(IN4,OUTPUT);
   pinMode(ENA,OUTPUT);
   pinMode(ENB,OUTPUT);
+
+  // Initialize communication and subscribe to /linear_move
   nh.initNode();
   ros::Subscriber<std_msgs::Int32> sub("/linear_move", &lineal_callback);
   nh.subscribe(sub);
@@ -84,5 +100,4 @@ void setup()
 void loop() 
 {
   nh.spinOnce();
-  //nh.loginfo("SpinOnce");
 }

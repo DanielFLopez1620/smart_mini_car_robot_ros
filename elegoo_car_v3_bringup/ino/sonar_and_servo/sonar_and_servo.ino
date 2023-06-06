@@ -1,18 +1,18 @@
-#include <ros.h>
-#include <ros/time.h>
-#include <sensor_msgs/Range.h>
+// ------------------------ Arduino Headers ----------------------
 #define USE_USBCON
-
 #if (ARDUINO >= 100)
  #include <Arduino.h>
 #else
  #include <WProgram.h>
 #endif
 
-#include <Servo.h> 
+// ------------------------ ROS Headers -------------------------
 #include <ros.h>
+#include <ros/time.h>
+#include <sensor_msgs/Range.h>
 #include <std_msgs/UInt16.h>
 
+// ------------------------ Global declarations ------------------
 ros::NodeHandle  nh;
 
 sensor_msgs::Range range_msg;
@@ -25,25 +25,75 @@ char frameid[] = "/ultrasound";
 
 Servo servo;
 
+// ----------------------- FUNCTIONS DECLARATIONS -------------------------
+
+/**
+ * Servo callback to move the servo to a given position
+ * 
+ * @param cmd_msg Standard message of type unsigned int16 which
+ * contains the desired angular position. 
+ */
 void servo_cb( const std_msgs::UInt16& cmd_msg)
 {
   servo.write(cmd_msg.data); //set servo angle, should be from 0-180  
   digitalWrite(13, HIGH-digitalRead(13));  //toggle led  
 }
-
 ros::Subscriber<std_msgs::UInt16> sub("servo", servo_cb);
 
-void setup() {
+/**
+ * Convert the microseconds that lasted the ultrasonic pulse to an
+ * estimation of the distance.
+ * 
+ * @param microseconds Time percieved by the ultrasonic sensor.
+ * 
+ * @return centimeters Distance estimation
+  */
+long microsecondsToCentimeters(long microseconds)
+{
+  return microseconds / 29.1 / 2;
+}
+
+/**
+ * Reads the duration of a pulse sent by a ultrasonic sensor and
+ * converts it to a estimation of distance.
+ */
+float getRange()
+{
+  long duration, cm;
+  
+  // Using the ultrasonic sensor to send a pulse
+  pinMode(pingPin, OUTPUT);
+  digitalWrite(pingPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(pingPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(pingPin, LOW);
+  
+  // Reading the echo's pulse duration
+  pinMode(inPin, INPUT);
+  duration = pulseIn(inPin, HIGH);
+  
+  // convert the time into a distance
+  return microsecondsToCentimeters(duration);
+}
+
+// ----------------------- MAIN PROGRAM -------------------------
+void setup() 
+{
+  // Initialize communication
   nh.initNode();
+  
+  // Begin specifications for ultrasound publisher
   nh.advertise(pub_range);
   range_msg.radiation_type = sensor_msgs::Range::ULTRASOUND;
   range_msg.header.frame_id =  frameid;
   range_msg.field_of_view = 0.1;  // fake
   range_msg.min_range = 0.0;
   range_msg.max_range = 6.47;
-  nh.initNode();
+
+  // Subscribe to servo indicator
   nh.subscribe(sub);
-  servo.attach(3); //attach it to pin 9
+  servo.attach(3);
 }
 
 void loop()
@@ -56,38 +106,4 @@ void loop()
       range_time =  millis() + 50;
     }    
     nh.spinOnce();
-}
-
-long microsecondsToCentimeters(long microseconds)
-{
-// The speed of sound is 340 m/s or 29 microseconds per centimeter.
-// The ping travels out and back, so to find the distance of the
-// object we take half of the distance travelled.
-return microseconds / 29.1 / 2;
-}
-
-float getRange()
-{
-    
-    // establish variables for duration of the ping,
-  // and the distance result in inches and centimeters:
-  long duration, cm;
-  
-  // The PING))) is triggered by a HIGH pulse of 2 or more microseconds.
-  // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
-  pinMode(pingPin, OUTPUT);
-  digitalWrite(pingPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(pingPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(pingPin, LOW);
-  
-  // The same pin is used to read the signal from the PING))): a HIGH
-  // pulse whose duration is the time (in microseconds) from the sending
-  // of the ping to the reception of its echo off of an object.
-  pinMode(inPin, INPUT);
-  duration = pulseIn(inPin, HIGH);
-  
-  // convert the time into a distance
-  return microsecondsToCentimeters(duration);
 }

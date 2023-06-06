@@ -24,5 +24,10 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-
-
+catkin_install_python(PROGRAMS 
+scripts/demo_elegoo_car.py
+scripts/servo_node.py
+scripts/car_mov_node.py
+scripts/give_me_eight.py
+DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)

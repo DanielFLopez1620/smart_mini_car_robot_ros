@@ -34,6 +34,8 @@ void motor_callback(const std_msgs::Empty& mov)
    digitalWrite(IN3,HIGH-digitalRead(IN3));  
    digitalWrite(IN4,HIGH-digitalRead(IN4));
 }
+// Subscriber to /mov topic
+ros::Subscriber<std_msgs::Empty> sub("/mov", &motor_callback);
 
 // ----------------------- MAIN PROGRAM -------------------------
 
@@ -55,9 +57,9 @@ void setup()
   digitalWrite(IN3,LOW);  
   digitalWrite(IN4,HIGH);
   
-  // Initialize communications and subscribe to /mov topic
+  // Initialize communications 
   nh.initNode();
-  ros::Subscriber<std_msgs::Empty> sub("/mov", &motor_callback);
+  
   nh.subscribe(sub);
 }
 

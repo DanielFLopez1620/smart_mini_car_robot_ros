@@ -77,9 +77,11 @@ void lineal_callback(const std_msgs::Int32& mov_msg)
     digitalWrite(IN2,LOW);
     digitalWrite(IN3,LOW);
     digitalWrite(IN4,LOW);
-    delay(20);
   }
 }
+
+// Subscriber to /linear_move
+ros::Subscriber<std_msgs::Int32> sub("/linear_move", &lineal_callback);
 
 void setup() 
 {
@@ -91,13 +93,13 @@ void setup()
   pinMode(ENA,OUTPUT);
   pinMode(ENB,OUTPUT);
 
-  // Initialize communication and subscribe to /linear_move
+  // Initialize communication
   nh.initNode();
-  ros::Subscriber<std_msgs::Int32> sub("/linear_move", &lineal_callback);
   nh.subscribe(sub);
 }
 
 void loop() 
 {
   nh.spinOnce();
+  delay(1);
 }

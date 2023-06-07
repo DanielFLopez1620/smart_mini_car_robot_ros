@@ -62,6 +62,8 @@ void move_callback(const std_msgs::UInt16& mov_msg)
     delay(20);
   }
 }
+// Subscriber to the topic /base_mov
+ros::Subscriber<std_msgs::UInt16> sub("/base_mov", &move_callback);
 
 // ----------------------- MAIN PROGRAM -------------------------
 
@@ -75,10 +77,9 @@ void setup()
   pinMode(ENA, OUTPUT);
   pinMode(ENB, OUTPUT);
 
-  // Initialize communication and subscribe to the topic /base_move
+  // Initialize communication
   nh.initNode();
   nh.loginfo("Arduino Setup Completed");
-  ros::Subscriber<std_msgs::UInt16> sub("/base_mov", &move_callback);
   nh.subscribe(sub);
 }
 

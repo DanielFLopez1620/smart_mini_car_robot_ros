@@ -5,7 +5,6 @@
 #else
  #include <WProgram.h>
 #endif
-#define USE_USBCON
 #include <ArduinoHardware.h>
 
 // -------------------- ROS headers -------------------
@@ -121,6 +120,8 @@ void lineal_callback(const std_msgs::Int32& mov_msg)
   }
   return;
 }
+// Subscribe to /linear_move
+ros::Subscriber<std_msgs::Int32> sub2("/linear_move", &lineal_callback);
 
 /**
  * Convert the microseconds that lasted the ultrasonic pulse to an
@@ -187,19 +188,20 @@ void setup() {
   pinMode(ENB,OUTPUT);
   
   // Generate subscriber for motor direction
-  ros::Subscriber<std_msgs::Int32> sub2("linear_move", &lineal_callback);
   nh.subscribe(sub2);
 }
 
 void loop()
 {
   // Publish new message for the ultrasonic's reading
-  if ( millis() >= range_time ){
+  if ( millis() >= range_time )
+  {
       int r =0;  
       range_msg.range = getRange() / 100;
       range_msg.header.stamp = nh.now();
       pub_range.publish(&range_msg);
       range_time =  millis() + 50;
-    }    
-    nh.spinOnce();
+  }    
+  nh.spinOnce();
+  delay(1);
 }

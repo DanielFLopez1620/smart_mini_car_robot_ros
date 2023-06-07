@@ -147,7 +147,8 @@ void cmd_callback(const geometry_msgs::Twist& mov_msg)
       nh.loginfo("Backward and left!");
     }*/
   }
-}
+}// /cmd_vel subscriber
+ros::Subscriber<geometry_msgs::Twist> sub("/cmd_vel", &cmd_callback);
 
 // ----------------------- MAIN PROGRAM -------------------------
 
@@ -162,8 +163,7 @@ void setup()
   pinMode(ENB,OUTPUT);
   
   // Initialize communication and subscribe by using /cmd_vel
-  nh.initNode(); 
-  ros::Subscriber<geometry_msgs::Twist> sub("/cmd_vel", &cmd_callback);
+  nh.initNode();
   nh.subscribe(sub);
 }
 

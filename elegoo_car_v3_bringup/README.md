@@ -1,10 +1,10 @@
-# Elegoo Car V3 Gazebo
+# Elegoo Car V3 Bring Up
 
 ## Overview
 
-Package related to the simulation with Gazebo for the description defined in the [elegoo_car_v3_description](/elegoo_car_v3_description/) package, where you can explore simulated worlds with the car.
+Package related to the configuration and bring up for the [ELEGOO] Smart Robot Car V3 with ROS and ROSserial for Arduino.
 
-**Keywords:** smart robot, gazebo, simulation, ROS.
+**Keywords:** smart robot, rosserial, Arduino, ROS.
 
 ### License
 
@@ -13,33 +13,26 @@ The source code is released under a [BSD 3-Clause license](/LICENSE).
 **Author: Daniel F López<br />
 Maintainer: Daniel F López, dfelipe.lopez@gmail.com**
 
-The *elegoo_car_v3_gazebo* package has been tested under [ROS] Noetic on Ubuntu 20.04.
-This is a educational project, which purposes on demostrating the capabilities of ROS and [Arduino] for robotics, and explore other capabilities of ROS related with simulations.
-
-### Publications
-
-If you use this work in an academic context, please cite the following publication(s):
-
-* P. Fankhauser, M. Bloesch, C. Gehring, M. Hutter, and R. Siegwart: **PAPER TITLE**. IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2015. ([PDF](http://dx.doi.org/10.3929/ethz-a-010173654))
-
-        @inproceedings{Fankhauser2015,
-            author = {Fankhauser, P\'{e}ter and Hutter, Marco},
-            booktitle = {IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
-            title = {{PAPER TITLE}},
-            publisher = {IEEE},
-            year = {2015}
-        }
+The *elegoo_car_v3_bring_up* package has been tested under [ROS] Noetic on Ubuntu 20.04.
+This is a educational project, which purposes on demostrating the capabilities of ROS and [Arduino] for robotics to give those robots more capabilities and explore different applications with home made robots.
 
 
 ## Installation
 
 ### Installation from Packages
 
-To install all packages from the this repository as Debian packages use
+To use the codes available in this repository, make sure you have installed Arduino for Ubuntu 20.04, for that I recommend you to use some tutorials, like [Install Arduino IDE on Ubuntu 20.04 | Linux Op Sys](https://linuxopsys.com/topics/install-arduino-ide-on-ubuntu-20-04) or [Install the Arduino IDE | Canonical](https://ubuntu.com/tutorials/install-the-arduino-ide#5-thats-all-folks). After you have made the installation, make sure to configure the rosserial:
 
-    sudo apt-get install ros-noetic-...
-    
-Or better, use `rosdep`:
+    sudo apt-get install ros-noetic-rosserial
+	sudo apt-get install ros-noetic-rosserial-arduino
+	cd ~<path_to_arduino_folder>/libreries
+	rosrun rosserial_arduino make_libreries.py . # Make sure to run roscore first
+
+Also, when connecting a Arduino Board or related, make sure to give permiission to the port, for example:
+
+	sudo chmod a+rw /dev/ttyACM0
+
+Finally, you can make sure you have installed all the dependencies with:
 
 	sudo rosdep install --from-paths src
 
@@ -48,9 +41,8 @@ Or better, use `rosdep`:
 #### Dependencies
 
 - [Robot Operating System (ROS)](http://wiki.ros.org) (middleware for robotics),
-- [Eigen] (linear algebra library)
-
-	sudo rosdep install --from-paths src
+- [ROS Serial](https://wiki.ros.org/rosserial) (Protocol for wrapping ROS serialized message via serial port or network socket)
+- [ROS Serial Arduino](https://wiki.ros.org/rosserial_arduino) (Rosserial client for Arduino)
 
 #### Building
 
@@ -62,123 +54,118 @@ To build from source, clone the latest version from this repository into your ca
 	rosdep install --from-paths . --ignore-src
 	catkin_make
 
-### Running in Docker
-
-Docker is a great way to run an application with all dependencies and libraries bundles together. 
-Make sure to [install Docker](https://docs.docker.com/get-docker/) first. 
-
-First, spin up a simple container:
-
-	docker run -ti --rm --name ros-container ros:noetic bash
-	
-This downloads the `ros:noetic` image from the Docker Hub, indicates that it requires an interactive terminal (`-t, -i`), gives it a name (`--name`), removes it after you exit the container (`--rm`) and runs a command (`bash`).
-
-Now, create a catkin workspace, clone the package, build it, done!
-
-	apt-get update && apt-get install -y git
-	mkdir -p /ws/src && cd /ws/src
-	git clone https://github.com/leggedrobotics/ros_best_practices.git
-	cd ..
-	rosdep install --from-path src
-	catkin_make
-	source devel/setup.bash
-	roslaunch ros_package_template ros_package_template.launch
-
-### Unit Tests
-
-Run the unit tests with
-
-	catkin_make run_tests_ros_package_template
-
-### Static code analysis
-
-Run the static code analysis with
-
-	catkin_make roslint_ros_package_template
+Also, you have to make sure you compile and run the .ino programs to the Arduino Board, to then run a node/application.
 
 ## Usage
 
-Describe the quickest way to run this software, for example:
+The basic usage is to run the rosserial communication with a program running on the Arduino board, and then start to interact with the topics of the robot. Make sure to use the corresponding port, in the case of this repo:
 
-Run the main node with
+	roscore
+	rosrun rosserial_python serial_node.py /dev/ttyUSB0 # Or ACM0
 
-	roslaunch ros_package_template ros_package_template.launch
-
-## Config files
-
-Config file folder/set 1
-
-* **config_file_1.yaml** Shortly explain the content of this config file
-
-Config file folder/set 2
-
-* **...**
-
-## Launch files
-
-* **launch_file_1.launch:** shortly explain what is launched (e.g standard simulation, simulation with gdb,...)
-
-     Argument set 1
-
-     - **`argument_1`** Short description (e.g. as commented in launch file). Default: `default_value`.
-
-    Argument set 2
-
-    - **`...`**
-
-* **...**
 
 ## Nodes
 
-### ros_package_template
+### dc_motor_control
 
-Reads temperature measurements and computed the average.
-
+Node related to the move of the car forward or backwards according to the number sent.
 
 #### Subscribed Topics
 
-* **`/temperature`** ([sensor_msgs/Temperature])
+* **`/base_mov`** ([std_msgs/uint16])
 
-	The temperature measurements from which the average is computed.
+	Case of movement: 0 is forward, 1 is backwards and otherwise is stop.
 
+### dc_motor_on_off
+
+Node related to move the car forward or backwards by toggling states.
+
+#### Subscribed Topics
+
+* **`/mov`** ([std_msgs/empy])
+
+	When recieved, toggle the state of the car. If it is going forward, then it will be going backwards.
+
+### dc_motor_velocity
+
+Node related to the move of the car in 4 directions (forward, backwards, left or right).
+
+#### Subscribed Topics
+
+* **`/linear_mov`** ([std_msgs/int32])
+
+	Case of movement: 0 is forward, 1 is backwards, 2 is left, 3 is right, and otherwise is stop.
 
 #### Published Topics
 
 ...
 
+### elegoo_car_basic_usage
 
-#### Services
+Node related to the move of the car in 4 directions (forward, backwards, left or right).
 
-* **`get_average`** ([std_srvs/Trigger])
+#### Subscribed Topics
 
-	Returns information about the current average. For example, you can trigger the computation from the console with
+* **`/linear_mov`** ([std_msgs/Int32])
 
-		rosservice call /ros_package_template/get_average
+	Case of movement: 0 is forward, 1 is backwards, 2 is left, 3 is right, and otherwise is stop.
+
+#### Published Topics
+
+* **`/ultrasound`** ([sensor_msgs/Range])
+
+	The range identify by the ultrasonic sensor located in the front of the car.
+
+### elegoo_car_cmd_vel
+
+Node related to the command velocity for the car, that is compatible with joystick or the keyboard twist teleoperation..
+
+#### Subscribed Topics
+
+* **`/linear_mov`** ([geometry_msgs/Twist])
+
+	Topic related to the commands for moving and configuring the velocity of the robot.
 
 
-#### Parameters
+### servo_control
 
-* **`subscriber_topic`** (string, default: "/temperature")
+Node related to the command velocity for the car, that is compatible with joystick or the keyboard twist teleoperation..
 
-	The name of the input topic.
+#### Subscribed Topics
 
-* **`cache_size`** (int, default: 200, min: 0, max: 1000)
+* **`/servo`** ([std_msgs/uint16])
 
-	The size of the cache.
+	Indication of position to the servo, ideally between 0° and 180°.
 
 
-### NODE_B_NAME
+### servo_control
 
-...
+Node related to the command velocity for the car, that is compatible with joystick or the keyboard twist teleoperation..
+
+#### Subscribed Topics
+
+* **`/servo`** ([std_msgs/uint16])
+
+	Indication of position to the servo, ideally between 0° and 180°.
+
+#### Published Topics
+
+* **`/ultrasound`** ([sensor_msgs/Range]) <--
+
+	The range identify by the ultrasonic sensor located in the front of the car.
+
 
 
 ## Bugs & Feature Requests
 
-Please report bugs and request features using the [Issue Tracker](https://github.com/ethz-asl/ros_best_practices/issues).
+Please report bugs and request features using the [Issue Tracker](https://github.com/DanielFLopez1620/smart_mini_car_robot_ros/issues).
 
 
 [ROS]: http://www.ros.org
-[rviz]: http://wiki.ros.org/rviz
-[Eigen]: http://eigen.tuxfamily.org
-[std_srvs/Trigger]: http://docs.ros.org/api/std_srvs/html/srv/Trigger.html
-[sensor_msgs/Temperature]: http://docs.ros.org/api/sensor_msgs/html/msg/Temperature.html
+[ELEGOO]: https://www.amazon.com/stores/page/E0F05684-D7AD-47CF-B08C-4084EBEE5BD3?ingress=2&visitId=16d40731-5924-4131-8f30-082353496e84&ref_=ast_bln
+[Arduino]: https://www.arduino.cc/
+[std_msgs/uint16]:(https://docs.ros.org/en/noetic/api/std_msgs/html/msg/UInt16.html)
+[std_msgs/empy]:(https://docs.ros.org/en/melodic/api/std_msgs/html/msg/Empty.html)
+[std_msgs/int32]:(https://docs.ros.org/en/melodic/api/std_msgs/html/msg/Int32.html)
+[sensor_msgs/Range]:(https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Range.html)
+[geometry_msgs/Twist]:(https://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html)

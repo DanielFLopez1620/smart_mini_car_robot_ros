@@ -17,9 +17,9 @@ The *elegoo_car_v3_bring_up* package has been tested under [ROS] Noetic on Ubunt
 This is a educational project, which purposes on demostrating the capabilities of ROS and [Arduino] for robotics to give those robots more capabilities and explore different applications with home made robots.
 
 
-## Installation
+# Installation
 
-### Installation from Packages
+## Installation from Packages
 
 To use the codes available in this repository, make sure you have installed Arduino for Ubuntu 20.04, for that I recommend you to use some tutorials, like [Install Arduino IDE on Ubuntu 20.04 | Linux Op Sys](https://linuxopsys.com/topics/install-arduino-ide-on-ubuntu-20-04) or [Install the Arduino IDE | Canonical](https://ubuntu.com/tutorials/install-the-arduino-ide#5-thats-all-folks). After you have made the installation, make sure to configure the rosserial:
 
@@ -35,16 +35,13 @@ Also, when connecting a Arduino Board or related, make sure to give permiission 
 Finally, you can make sure you have installed all the dependencies with:
 
 	sudo rosdep install --from-paths src
+## Dependencies
 
-### Building from Source
-
-#### Dependencies
-
-- [Robot Operating System (ROS)](http://wiki.ros.org) (middleware for robotics),
+- [Robot Operating System (ROS)](http://wiki.ros.org) (Middleware for robotics),
 - [ROS Serial](https://wiki.ros.org/rosserial) (Protocol for wrapping ROS serialized message via serial port or network socket)
 - [ROS Serial Arduino](https://wiki.ros.org/rosserial_arduino) (Rosserial client for Arduino)
 
-#### Building
+## Building
 
 To build from source, clone the latest version from this repository into your catkin workspace and compile the package using
 
@@ -56,7 +53,7 @@ To build from source, clone the latest version from this repository into your ca
 
 Also, you have to make sure you compile and run the .ino programs to the Arduino Board, to then run a node/application.
 
-## Usage
+# Usage
 
 The basic usage is to run the rosserial communication with a program running on the Arduino board, and then start to interact with the topics of the robot. Make sure to use the corresponding port, in the case of this repo:
 
@@ -64,99 +61,150 @@ The basic usage is to run the rosserial communication with a program running on 
 	rosrun rosserial_python serial_node.py /dev/ttyUSB0 # Or ACM0
 
 
-## Nodes
+# Nodes
 
-### dc_motor_control
+## dc_motor_control
 
-Node related to the move of the car forward or backwards according to the number sent.
+Serial node related to the move of the car forward or backwards according to the number sent. It must be uploaded to the Arduino and then execute the serial connection with ROS.
 
-#### Subscribed Topics
+### Subscribed Topics
 
 * **`/base_mov`** ([std_msgs/uint16])
 
 	Case of movement: 0 is forward, 1 is backwards and otherwise is stop.
 
-### dc_motor_on_off
+## dc_motor_on_off
 
-Node related to move the car forward or backwards by toggling states.
+Serial node related to move the car forward or backwards by toggling states. It must be uploaded to the Arduino and then execute the serial connection with ROS.
 
-#### Subscribed Topics
+## Subscribed Topics
 
 * **`/mov`** ([std_msgs/empy])
 
 	When recieved, toggle the state of the car. If it is going forward, then it will be going backwards.
 
-### dc_motor_velocity
+## dc_motor_velocity
 
-Node related to the move of the car in 4 directions (forward, backwards, left or right).
+Serial node related to the move of the car in 4 directions (forward, backwards, left or right). It must be uploaded to the Arduino and then execute the serial connection with ROS.
 
-#### Subscribed Topics
+### Subscribed Topics
 
 * **`/linear_mov`** ([std_msgs/int32])
 
 	Case of movement: 0 is forward, 1 is backwards, 2 is left, 3 is right, and otherwise is stop.
 
-#### Published Topics
+## elegoo_car_basic_usage
 
-...
+Serial node related to the move of the car in 4 directions (forward, backwards, left or right). It must be uploaded to the Arduino and then execute the serial connection with ROS.
 
-### elegoo_car_basic_usage
-
-Node related to the move of the car in 4 directions (forward, backwards, left or right).
-
-#### Subscribed Topics
+### Subscribed Topics
 
 * **`/linear_mov`** ([std_msgs/Int32])
 
 	Case of movement: 0 is forward, 1 is backwards, 2 is left, 3 is right, and otherwise is stop.
 
-#### Published Topics
+### Published Topics
 
 * **`/ultrasound`** ([sensor_msgs/Range])
 
 	The range identify by the ultrasonic sensor located in the front of the car.
 
-### elegoo_car_cmd_vel
+## elegoo_car_cmd_vel
 
-Node related to the command velocity for the car, that is compatible with joystick or the keyboard twist teleoperation..
+Serial node related to the command velocity for the car, that is compatible with joystick or the keyboard twist teleoperation. It must be uploaded to the Arduino and then execute the serial connection with ROS.
 
-#### Subscribed Topics
+### Subscribed Topics
 
-* **`/linear_mov`** ([geometry_msgs/Twist])
+* **`/cmd_vel`** ([geometry_msgs/Twist])
 
 	Topic related to the commands for moving and configuring the velocity of the robot.
 
 
-### servo_control
+## servo_control
 
-Node related to the command velocity for the car, that is compatible with joystick or the keyboard twist teleoperation..
+Serial node related to control the servo motor that holds the ultrasonic sensor. It must be uploaded to the Arduino and then execute the serial connection with ROS.
 
-#### Subscribed Topics
-
-* **`/servo`** ([std_msgs/uint16])
-
-	Indication of position to the servo, ideally between 0° and 180°.
-
-
-### servo_control
-
-Node related to the command velocity for the car, that is compatible with joystick or the keyboard twist teleoperation..
-
-#### Subscribed Topics
+### Subscribed Topics
 
 * **`/servo`** ([std_msgs/uint16])
 
 	Indication of position to the servo, ideally between 0° and 180°.
 
-#### Published Topics
 
-* **`/ultrasound`** ([sensor_msgs/Range]) <--
+## sonar_and_servo
+
+Serial node related to using the servo motor and the ultrasonic sensor to detect obstacles. It must be uploaded to the Arduino and then execute the serial connection with ROS.
+
+### Subscribed Topics
+
+* **`/servo`** ([std_msgs/uint16])
+
+	Indication of position to the servo, ideally between 0° and 180°.
+
+### Published Topics
+
+* **`/ultrasound`** ([sensor_msgs/Range])
 
 	The range identify by the ultrasonic sensor located in the front of the car.
 
+## car_move_node
+
+Python node related to an simple obstacle avoidance showcase, it must use a serial node that has running /ultrasound, /servo and /linear_move at the same time, for example, **elegoo_car_basic_usage**.
+
+### Subscribed Topics
+
+* **`/ultrasound`** ([sensor_msgs/Range]) 
+
+	The range identify by the ultrasonic sensor located in the front of the car.
+
+### Published Topics
+
+* **`/servo`** ([std_msgs/uint16])
+
+	Indication of position to the servo, ideally between 0° and 180°, so it can decide the direction to turn.
+
+* **`/linear_mov`** ([std_msgs/Int32])
+
+	Case of movement: 0 is forward, 1 is backwards, 2 is left, 3 is right, and otherwise is stop.
+
+## demo_elegoo_car
+
+Python node related to a movement showcase, it must be used with a serial node that subscribes to /linear_move.
+
+### Published Topics
+
+* **`/linear_mov`** ([std_msgs/Int32])
+
+	Case of movement: 0 is forward, 1 is backwards, 2 is left, 3 is right, and otherwise is stop.
 
 
-## Bugs & Feature Requests
+## give_me_eigth
+
+Another python node related to a movement showcase, it must be used with a serial node that subscribes to /linear_move.
+
+### Published Topics
+
+* **`/linear_mov`** ([std_msgs/Int32])
+
+	Case of movement: 0 is forward, 1 is backwards, 2 is left, 3 is right, and otherwise is stop.
+
+## servo_node
+
+Python node related to test the ultrasonic sensor and the servo motor.
+
+### Subscribed Topics
+
+* **`/ultrasound`** ([sensor_msgs/Range]) 
+
+	The range identify by the ultrasonic sensor located in the front of the car.
+
+### Published Topics
+
+* **`/servo`** ([std_msgs/uint16])
+
+	Indication of position to the servo, ideally between 0° and 180°, so it can decide the direction to turn.
+
+# Bugs & Feature Requests
 
 Please report bugs and request features using the [Issue Tracker](https://github.com/DanielFLopez1620/smart_mini_car_robot_ros/issues).
 

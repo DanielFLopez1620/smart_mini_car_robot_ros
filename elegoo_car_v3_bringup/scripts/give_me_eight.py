@@ -2,8 +2,7 @@
 
 # ---------------- Imports related to ROS -------------------------------------
 import rospy
-from std_msgs.msg import Int16
-from sensor_msgs.msg import Range
+from std_msgs.msg import Int32
     
 # ------------------ Definition of functions ---------------------------------
 def publisher():
@@ -14,8 +13,8 @@ def publisher():
 	Make sure to be using ROSSerial for Arduino.
 	"""
     try:
-        pub_servo = rospy.Publisher('/servo', Int16, queue_size=10)
-        pub_motors = rospy.Publisher('/linear_move', Int16, queue_size=10)
+        pub_servo = rospy.Publisher('/servo', Int32, queue_size=10)
+        pub_motors = rospy.Publisher('/linear_move', Int32, queue_size=10)
         rate_1 = rospy.Rate(1)
         rate_2 = rospy.Rate(2)
         rate_3 = rospy.Rate(0.2)

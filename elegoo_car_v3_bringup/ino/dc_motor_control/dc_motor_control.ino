@@ -3,7 +3,7 @@
 
 // ---------------------- ROS Headers -------------------------
 #include <ros.h>
-#include <std_msgs/UInt16.h>
+#include <std_msgs/Int32.h>
 
 // -------------------- Global declarations -------------------
 
@@ -27,7 +27,7 @@ ros::NodeHandle  nh;
    @param mov_msg raw integer data for the case (0 is forwards,
           1 is backwards and otherwise means stop)
 */
-void move_callback(const std_msgs::UInt16& mov_msg)
+void move_callback(const std_msgs::Int32& mov_msg)
 {
   int vel_x = (int) mov_msg.data;
 
@@ -63,7 +63,7 @@ void move_callback(const std_msgs::UInt16& mov_msg)
   }
 }
 // Subscriber to the topic /base_mov
-ros::Subscriber<std_msgs::UInt16> sub("/base_mov", &move_callback);
+ros::Subscriber<std_msgs::Int32> sub("/base_mov", &move_callback);
 
 // ----------------------- MAIN PROGRAM -------------------------
 
@@ -86,4 +86,5 @@ void setup()
 void loop()
 {
   nh.spinOnce();
+  delay(1);
 }

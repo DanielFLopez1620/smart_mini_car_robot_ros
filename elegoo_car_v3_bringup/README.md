@@ -69,7 +69,7 @@ Serial node related to the move of the car forward or backwards according to the
 
 ### Subscribed Topics
 
-* **`/base_mov`** ([std_msgs/uint16])
+* **`/base_mov`** ([std_msgs/int32])
 
 	Case of movement: 0 is forward, 1 is backwards and otherwise is stop.
 

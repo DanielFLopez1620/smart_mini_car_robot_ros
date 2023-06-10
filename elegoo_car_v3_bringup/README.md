@@ -6,6 +6,8 @@ Package related to the configuration and bring up for the [ELEGOO] Smart Robot C
 
 **Keywords:** smart robot, rosserial, Arduino, ROS.
 
+⠀⠀⠀⠀⠀⠀⠀⠀![view2](/images/elegoo_model_view2.jpg)
+
 ### License
 
 The source code is released under a [BSD 3-Clause license](/LICENSE).

@@ -127,6 +127,6 @@ Please report bugs and request changes using the [Issue Tracker](https://github.
 [URDF]: http://wiki.ros.org/urdf
 [rviz]: http://wiki.ros.org/rviz
 [sw_URDF_exporter]: http://wiki.ros.org/sw_urdf_exporter
-[sensor_msgs/JointState]:(http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/JointState.html)
-[tf2_msgs/TFMessage]:(http://docs.ros.org/en/lunar/api/tf2_msgs/html/msg/TFMessage.html)
-[geometry_msgs/PoseWithCovarianceStamped]:(http://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/PoseWithCovarianceStamped.html)
+[sensor_msgs/JointState]: http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/JointState.html
+[tf2_msgs/TFMessage]: http://docs.ros.org/en/lunar/api/tf2_msgs/html/msg/TFMessage.html
+[geometry_msgs/PoseWithCovarianceStamped]: http://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/PoseWithCovarianceStamped.html

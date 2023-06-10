@@ -99,7 +99,7 @@ Please report bugs and request features using the [Issue Tracker](https://github
 [Xacro]: http://wiki.ros.org/xacro
 [URDF]: http://wiki.ros.org/urdf
 [sw_URDF_exporter]: http://wiki.ros.org/sw_urdf_exporter
-[geometry_msgs/Twist]:(https://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html)
-[tf2_msgs/TFMessage]:(http://docs.ros.org/en/lunar/api/tf2_msgs/html/msg/TFMessage.html)
-[nav_msgs/Odometry]:(https://docs.ros.org/en/noetic/api/nav_msgs/html/msg/Odometry.html)
-[teleop_twist_keyboard]:(https://wiki.ros.org/teleop_twist_keyboard)
+[geometry_msgs/Twist]: https://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html
+[tf2_msgs/TFMessage]: http://docs.ros.org/en/lunar/api/tf2_msgs/html/msg/TFMessage.html
+[nav_msgs/Odometry]: https://docs.ros.org/en/noetic/api/nav_msgs/html/msg/Odometry.html
+[teleop_twist_keyboard]: https://wiki.ros.org/teleop_twist_keyboard

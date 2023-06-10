@@ -93,7 +93,9 @@ Serial node related to move the car forward or backwards by toggling states. It 
 
 Serial node related to the move of the car in 4 directions (forward, backwards, left or right). It must be uploaded to the Arduino and then execute the serial connection with ROS.
 
-⠀⠀⠀⠀⠀⠀⠀⠀![motor_velocity](/elegoo_car_v3_bringup/images/elegoo_car_bringup_carmove.gif)⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀![motor_velocity](/elegoo_car_v3_bringup/images/elegoo_car_bringup_carmove.gif)
+
+⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀![motor_velocity](/elegoo_car_v3_bringup/images/elegoo_car_bringup_turnmove.gif)
 
 ### Subscribed Topics
@@ -237,8 +239,8 @@ Please report bugs and request features using the [Issue Tracker](https://github
 [ROS]: http://www.ros.org
 [ELEGOO]: https://www.amazon.com/stores/page/E0F05684-D7AD-47CF-B08C-4084EBEE5BD3?ingress=2&visitId=16d40731-5924-4131-8f30-082353496e84&ref_=ast_bln
 [Arduino]: https://www.arduino.cc/
-[std_msgs/uint16]:(https://docs.ros.org/en/noetic/api/std_msgs/html/msg/UInt16.html)
-[std_msgs/empy]:(https://docs.ros.org/en/melodic/api/std_msgs/html/msg/Empty.html)
-[std_msgs/int32]:(https://docs.ros.org/en/melodic/api/std_msgs/html/msg/Int32.html)
-[sensor_msgs/Range]:(https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Range.html)
-[geometry_msgs/Twist]:(https://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html)
+[std_msgs/uint16]: https://docs.ros.org/en/noetic/api/std_msgs/html/msg/UInt16.html
+[std_msgs/empy]: https://docs.ros.org/en/melodic/api/std_msgs/html/msg/Empty.html
+[std_msgs/int32]: https://docs.ros.org/en/melodic/api/std_msgs/html/msg/Int32.html
+[sensor_msgs/Range]: https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Range.html
+[geometry_msgs/Twist]: https://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html

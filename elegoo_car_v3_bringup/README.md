@@ -67,6 +67,8 @@ The basic usage is to run the rosserial communication with a program running on 
 
 Serial node related to the move of the car forward or backwards according to the number sent. It must be uploaded to the Arduino and then execute the serial connection with ROS.
 
+⠀⠀⠀⠀⠀⠀⠀⠀![motor_control](/elegoo_car_v3_bringup/images/elegoo_car_bringup_control.gif)
+
 ### Subscribed Topics
 
 * **`/base_mov`** ([std_msgs/uint16])
@@ -76,6 +78,8 @@ Serial node related to the move of the car forward or backwards according to the
 ## dc_motor_on_off
 
 Serial node related to move the car forward or backwards by toggling states. It must be uploaded to the Arduino and then execute the serial connection with ROS.
+
+⠀⠀⠀⠀⠀⠀⠀⠀![motor_on_off](/elegoo_car_v3_bringup/images/elegoo_car_bringup_on-of.gif)
 
 ## Subscribed Topics
 
@@ -87,6 +91,9 @@ Serial node related to move the car forward or backwards by toggling states. It 
 
 Serial node related to the move of the car in 4 directions (forward, backwards, left or right). It must be uploaded to the Arduino and then execute the serial connection with ROS.
 
+⠀⠀⠀⠀⠀⠀⠀⠀![motor_velocity](/elegoo_car_v3_bringup/images/elegoo_car_bringup_carmove.gif)⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀![motor_velocity](/elegoo_car_v3_bringup/images/elegoo_car_bringup_turnmove.gif)
+
 ### Subscribed Topics
 
 * **`/linear_mov`** ([std_msgs/int32])
@@ -95,7 +102,9 @@ Serial node related to the move of the car in 4 directions (forward, backwards, 
 
 ## elegoo_car_basic_usage
 
-Serial node related to the move of the car in 4 directions (forward, backwards, left or right). It must be uploaded to the Arduino and then execute the serial connection with ROS.
+Serial node related to the move of the car in 4 directions (forward, backwards, left or right) while also allows to use the servo motor and the ultrasonic sensor. It must be uploaded to the Arduino and then execute the serial connection with ROS.
+
+⠀⠀⠀⠀⠀⠀⠀⠀![basic_usage](/elegoo_car_v3_bringup/images/elegoo_car_bringup_basicusage.gif)
 
 ### Subscribed Topics
 
@@ -113,6 +122,8 @@ Serial node related to the move of the car in 4 directions (forward, backwards, 
 
 Serial node related to the command velocity for the car, that is compatible with joystick or the keyboard twist teleoperation. It must be uploaded to the Arduino and then execute the serial connection with ROS.
 
+⠀⠀⠀⠀⠀⠀⠀⠀![cmd_vel](/elegoo_car_v3_bringup/images/elegoo_car_bringup_cmd_vel.gif)
+
 ### Subscribed Topics
 
 * **`/cmd_vel`** ([geometry_msgs/Twist])
@@ -124,6 +135,8 @@ Serial node related to the command velocity for the car, that is compatible with
 
 Serial node related to control the servo motor that holds the ultrasonic sensor. It must be uploaded to the Arduino and then execute the serial connection with ROS.
 
+⠀⠀⠀⠀⠀⠀⠀⠀![servo](/elegoo_car_v3_bringup/images/elegoo_car_bringup_servo.gif)
+
 ### Subscribed Topics
 
 * **`/servo`** ([std_msgs/uint16])
@@ -134,6 +147,8 @@ Serial node related to control the servo motor that holds the ultrasonic sensor.
 ## sonar_and_servo
 
 Serial node related to using the servo motor and the ultrasonic sensor to detect obstacles. It must be uploaded to the Arduino and then execute the serial connection with ROS.
+
+⠀⠀⠀⠀⠀⠀⠀⠀![servo&ultrasound](/elegoo_car_v3_bringup/images/elegoo_car_bringup_sensorranger.gif)
 
 ### Subscribed Topics
 
@@ -150,6 +165,8 @@ Serial node related to using the servo motor and the ultrasonic sensor to detect
 ## car_move_node
 
 Python node related to an simple obstacle avoidance showcase, it must use a serial node that has running /ultrasound, /servo and /linear_move at the same time, for example, **elegoo_car_basic_usage**.
+
+⠀⠀⠀⠀⠀⠀⠀⠀![car_move](/elegoo_car_v3_bringup/images/elegoo_car_bringup_carmove.gif)
 
 ### Subscribed Topics
 
@@ -171,6 +188,8 @@ Python node related to an simple obstacle avoidance showcase, it must use a seri
 
 Python node related to a movement showcase, it must be used with a serial node that subscribes to /linear_move.
 
+⠀⠀⠀⠀⠀⠀⠀⠀![demo_elegoo](/elegoo_car_v3_bringup/images/elegoo_car_bringup_demoelegoo.gif)
+
 ### Published Topics
 
 * **`/linear_mov`** ([std_msgs/Int32])
@@ -182,6 +201,8 @@ Python node related to a movement showcase, it must be used with a serial node t
 
 Another python node related to a movement showcase, it must be used with a serial node that subscribes to /linear_move.
 
+⠀⠀⠀⠀⠀⠀⠀⠀![give_me_eight](/elegoo_car_v3_bringup/images/elegoo_car_bringup_give_8.gif)
+
 ### Published Topics
 
 * **`/linear_mov`** ([std_msgs/Int32])
@@ -191,6 +212,8 @@ Another python node related to a movement showcase, it must be used with a seria
 ## servo_node
 
 Python node related to test the ultrasonic sensor and the servo motor.
+
+⠀⠀⠀⠀⠀⠀⠀⠀![servo_node](/elegoo_car_v3_bringup/images/elegoo_car_bringup_servopy.gif)
 
 ### Subscribed Topics
 

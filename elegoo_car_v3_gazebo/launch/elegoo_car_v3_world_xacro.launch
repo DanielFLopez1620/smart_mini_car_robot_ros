@@ -1,0 +1,19 @@
+<launch>
+    <arg name="x_pos" default="0.0"/>                                                                      
+    <arg name="y_pos" default="0.0"/>                                                                      
+    <arg name="z_pos" default="0.0"/>
+    <arg name="model" default="$(find elegoo_car_v3_description)/urdf/elegoo_car_v3_description.urdf.xacro"/>
+    
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">                                                            
+        <arg name="paused" value="false"/>                                                                      
+        <arg name="use_sim_time" value="true"/>                                                                 
+        <arg name="gui" value="true"/>                                                                          
+        <arg name="headless" value="false"/>                                                                    
+        <arg name="debug" value="false"/>                                                                     
+    </include>
+
+    <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+    
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" args="-z 1.0 -unpause -urdf -model robot -param robot_description" respawn="false" output="screen" />
+
+</launch>

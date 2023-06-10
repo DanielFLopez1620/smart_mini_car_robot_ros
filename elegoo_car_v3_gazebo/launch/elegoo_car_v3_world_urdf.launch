@@ -1,0 +1,13 @@
+<launch>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="verbose" value="true"/> 
+  </include>
+    
+  <node
+    name="spawn_model"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    args="-file $(find elegoo_car_v3_description)/urdf/elegoo_car_v3_gazebo.urdf -urdf -model elegoo_car_v3_description"
+    output="screen" />
+
+</launch>

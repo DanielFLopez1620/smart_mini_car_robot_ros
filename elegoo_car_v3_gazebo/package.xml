@@ -1,0 +1,45 @@
+<package format="2">
+  <name>elegoo_car_v3_gazebo</name>
+  <version>1.1.0</version>
+  <description>
+    <p>Gazebo package for elegoo_car_v3_description</p>
+    <p>This package contains launches related to the models, worlds 
+       and configs for the robot's simulation.</p>
+  </description>
+
+  <author email="dfelipe.lopez@gmail.com">DanielFLopez1620</author>
+  <maintainer email="dfelipe.lopez@gmail.com">DanielFLopez1620</maintainer>
+  <url type="repository">https://github.com/DanielFLopez1620/smart_mini_car_robot_ros/tree/main</url>
+  <license>BSD 3-Clause License</license>
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>urdf</build_depend>
+  <build_depend>xacro</build_depend>
+  <build_depend>message_generation</build_depend>
+
+  <depend>roslaunch</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>rviz</depend>
+  <depend>joint_state_publisher_gui</depend>
+  <depend>gazebo_ros</depend>
+  <depend>tf</depend>
+  
+  <exec_depend>elegoo_car_v3_description</exec_depend>
+  <exec_depend>gazebo</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>urdf</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  
+  <export>
+    <architecture_independent />
+  </export>
+</package>

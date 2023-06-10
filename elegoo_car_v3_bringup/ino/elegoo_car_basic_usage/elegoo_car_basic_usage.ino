@@ -39,7 +39,7 @@ long range_time;
 char frameid[] = "/ultrasound";
 
 // Velocity considered for the motors.
-int vel_x = 250;
+int vel_x = 225;
 
 // Servo Declaration
 Servo servo;
@@ -59,6 +59,7 @@ void servo_cb( const std_msgs::Int32& cmd_msg)
   //Toggle led  
   digitalWrite(13, HIGH-digitalRead(13));  
 }
+ros::Subscriber<std_msgs::Int32> sub("/servo", servo_cb);
 
 /**
  * Callback to specify a case of direction for the robot, subscribed
@@ -187,8 +188,9 @@ void setup() {
   pinMode(ENA,OUTPUT);
   pinMode(ENB,OUTPUT);
   
-  // Generate subscriber for motor direction
+  // Generate subscriber for motor direction and servo
   nh.subscribe(sub2);
+  nh.subscribe(sub);
 }
 
 void loop()
@@ -196,11 +198,11 @@ void loop()
   // Publish new message for the ultrasonic's reading
   if ( millis() >= range_time )
   {
-      int r =0;  
+      int r = 0;  
       range_msg.range = getRange() / 100;
       range_msg.header.stamp = nh.now();
       pub_range.publish(&range_msg);
-      range_time =  millis() + 50;
+      range_time =  millis() + 25;
   }    
   nh.spinOnce();
   delay(1);

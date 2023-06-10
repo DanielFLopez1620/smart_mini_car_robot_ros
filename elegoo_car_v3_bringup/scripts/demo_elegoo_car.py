@@ -17,24 +17,22 @@ def demo():
 	"""
 	pub = rospy.Publisher('/linear_move', Int32, queue_size=10)
 
-	rospy.init_node('elegoo_demo')
-
-	rate = rospy.Rate(0.5)
+	rospy.init_node('demo_elegoo_car')
 	
-	time.sleep(5)
-	rospy.loginfo("Avanzando")
+	time.sleep(2)
+	rospy.loginfo("Going ahead . . .")
 	pub.publish(0)
-	time.sleep(3)
-	rospy.loginfo("Gira")
+	time.sleep(1)
+	rospy.loginfo("Turn . . .")
 	pub.publish(2)
-	time.sleep(3)
-	rospy.loginfo("Gira")
+	time.sleep(1)
+	rospy.loginfo("Turn . . .")
 	pub.publish(3)
-	time.sleep(3)
-	rospy.loginfo("Retrocede")
+	time.sleep(1)
+	rospy.loginfo("Backwards . . .")
 	pub.publish(1)
-	time.sleep(3)
-	rospy.loginfo("Detiene")
+	time.sleep(1)
+	rospy.loginfo("Stop . . .")
 	pub.publish(5)
 
 # --------------------------- MAIN PROGRAM --------------------------

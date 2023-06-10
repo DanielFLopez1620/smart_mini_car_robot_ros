@@ -19,7 +19,7 @@
 ros::NodeHandle  nh;
 
 // Velocity considered for the program
-int vel_x = 250;
+int vel_x = 120;
 
 /**
  * Callback to specify a case of direction for the robot, subscribed

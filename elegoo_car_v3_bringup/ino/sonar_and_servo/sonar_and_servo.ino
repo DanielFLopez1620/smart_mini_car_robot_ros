@@ -1,10 +1,10 @@
 // ------------------------ Arduino Headers ----------------------
-#define USE_USBCON
 #if (ARDUINO >= 100)
  #include <Arduino.h>
 #else
  #include <WProgram.h>
 #endif
+#include <Servo.h>
 
 // ------------------------ ROS Headers -------------------------
 #include <ros.h>
@@ -14,6 +14,7 @@
 
 // ------------------------ Global declarations ------------------
 ros::NodeHandle  nh;
+Servo servo;
 
 sensor_msgs::Range range_msg;
 ros::Publisher pub_range( "/ultrasound", &range_msg);
@@ -23,7 +24,7 @@ int inPin = A4; // echo
 long range_time;
 char frameid[] = "/ultrasound";
 
-Servo servo;
+
 
 // ----------------------- FUNCTIONS DECLARATIONS -------------------------
 
@@ -38,7 +39,7 @@ void servo_cb( const std_msgs::UInt16& cmd_msg)
   servo.write(cmd_msg.data); //set servo angle, should be from 0-180  
   digitalWrite(13, HIGH-digitalRead(13));  //toggle led  
 }
-ros::Subscriber<std_msgs::UInt16> sub("servo", servo_cb);
+ros::Subscriber<std_msgs::UInt16> sub("/servo", servo_cb);
 
 /**
  * Convert the microseconds that lasted the ultrasonic pulse to an
